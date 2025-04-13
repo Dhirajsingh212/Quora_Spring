@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
         }
         return "Failure";
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
