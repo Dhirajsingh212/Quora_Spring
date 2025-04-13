@@ -42,21 +42,30 @@ public class BlogServiceImpl implements BlogService {
     public String updateBlog(String id, Blog blog) {
         Optional<Blog> dbBlog = blogRepository.findById(id);
         if(dbBlog.isPresent()) {
-            Blog updatedBlog = dbBlog.get();
-            updatedBlog.setTitle(blog.getTitle());
-            updatedBlog.setContent(blog.getContent());
-            blogRepository.save(updatedBlog);
-            return "Blog updated";
+            if(dbBlog.get().getUser().equals(blog.getUser())) {
+                Blog updatedBlog = dbBlog.get();
+                updatedBlog.setTitle(blog.getTitle());
+                updatedBlog.setContent(blog.getContent());
+                updatedBlog.setUser(blog.getUser());
+                blogRepository.save(updatedBlog);
+                return "Blog updated";
+            }else{
+                return "Not authorized to update this blog";
+            }
         }
         return "Blog not found";
     }
 
     @Override
-    public String deleteBlog(String id) {
+    public String deleteBlog(String id,User user) {
         Optional<Blog> dbBlog = blogRepository.findById(id);
         if(dbBlog.isPresent()) {
-            blogRepository.delete(dbBlog.get());
-            return "Blog deleted";
+            if(dbBlog.get().getUser().equals(user)) {
+                blogRepository.delete(dbBlog.get());
+                return "Blog deleted";
+            }else{
+                return "Not authorized to delete this blog";
+            }
         }
         return "Blog not found";
     }

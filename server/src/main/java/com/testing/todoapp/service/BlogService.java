@@ -11,5 +11,5 @@ public interface BlogService {
     public BlogDTO getBlog(String id);
     public List<BlogDTO> getBlogByUsername(User usr);
     public String updateBlog(String id,Blog blog);
-    public String deleteBlog(String id);
+    public String deleteBlog(String id,User user);
 }

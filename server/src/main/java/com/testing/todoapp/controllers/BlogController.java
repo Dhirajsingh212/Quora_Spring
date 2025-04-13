@@ -48,4 +48,25 @@ public class BlogController {
         blog.setUser(user);
         return new ResponseEntity<>(blogService.createNewBlog(blog),HttpStatus.CREATED);
     }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<String> updateBlog(@PathVariable String id, @RequestBody Blog blog){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            return new ResponseEntity<>("User  not found", HttpStatus.NOT_FOUND);
+        }
+        blog.setUser(user);
+        return new ResponseEntity<>(blogService.updateBlog(id,blog),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteBlog(@PathVariable String id){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            return new ResponseEntity<>("User  not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(blogService.deleteBlog(id,user),HttpStatus.OK);
+    }
 }
