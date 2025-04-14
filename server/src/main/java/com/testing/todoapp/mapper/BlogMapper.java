@@ -8,7 +8,8 @@ public class BlogMapper {
         return new BlogDTO(
                 blog.getId(),
                 blog.getTitle(),
-                blog.getContent()
+                blog.getContent(),
+                blog.getCreatedAt()
         );
     }
 }

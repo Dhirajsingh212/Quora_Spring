@@ -8,6 +8,7 @@ import com.testing.todoapp.repository.BlogRepository;
 import com.testing.todoapp.service.BlogService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogDTO> getBlogByUsername(User usr) {
         List<Blog> dbBlog = blogRepository.findByUser(usr);
+        dbBlog.sort(Comparator.comparing(Blog::getCreatedAt).reversed());
         return dbBlog.stream().map(BlogMapper::mapToBlogDTO).collect(Collectors.toList());
     }
 

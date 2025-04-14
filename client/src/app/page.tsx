@@ -22,7 +22,7 @@ const HomePage = () => {
     <Authentication>
       <div className="min-h-screen bg-gray-100 dark:bg-zinc-900">
         <Navbar/>
-        <div className="pt-16">
+        <div className="pt-16 ">
         <Main/>
         </div>
       </div>
