@@ -6,11 +6,13 @@ import axios from "axios";
 import { BASE_URL } from "@/lib/config";
 import getToken from "@/actions";
 import Spinner from "./Spinner";
+import { parseISO } from 'date-fns';
 
 interface Post {
   id: string;
   title: string;
   content: string;
+  createdAt: string;
 }
 
 const Main = () => {
@@ -58,7 +60,7 @@ const Main = () => {
             >
               <h2 className="text-2xl font-semibold">{post.title}</h2>
               <p className="text-gray-400 text-sm mt-1">{post.content}</p>
-              <p className="mt-4">October 1,2025</p>
+              <p className="mt-4">{format(parseISO(post.createdAt),'MMMM, d yyyy')}</p>
               <a
                 href="#"
                 className="text-blue-400 hover:underline mt-4 inline-block"
