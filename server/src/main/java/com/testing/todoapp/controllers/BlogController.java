@@ -65,7 +65,7 @@ public class BlogController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByUsername(username);
         if (user == null) {
-            return new ResponseEntity<>("User  not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(blogService.deleteBlog(id,user),HttpStatus.OK);
     }
