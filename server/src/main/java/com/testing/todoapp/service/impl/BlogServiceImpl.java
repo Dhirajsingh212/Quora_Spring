@@ -6,6 +6,8 @@ import com.testing.todoapp.model.Blog;
 import com.testing.todoapp.model.User;
 import com.testing.todoapp.repository.BlogRepository;
 import com.testing.todoapp.service.BlogService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -34,8 +36,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogDTO> getBlogByUsername(User usr) {
-        List<Blog> dbBlog = blogRepository.findByUser(usr);
+    public List<BlogDTO> getBlogByUsername(User usr,int pageSize,int page) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        List<Blog> dbBlog = blogRepository.findByUser(usr,pageable);
         dbBlog.sort(Comparator.comparing(Blog::getCreatedAt).reversed());
         return dbBlog.stream().map(BlogMapper::mapToBlogDTO).collect(Collectors.toList());
     }

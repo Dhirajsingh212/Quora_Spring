@@ -29,13 +29,13 @@ public class BlogController {
     }
 
     @GetMapping("/user/all")
-    public ResponseEntity<List<BlogDTO>> getAllBlog(){
+    public ResponseEntity<List<BlogDTO>> getAllBlog(@RequestParam(value = "pageSize") int pageSize,@RequestParam(value = "pageNumber") int page){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User dbUser = userService.getUserByUsername(username);
         if (dbUser == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(blogService.getBlogByUsername(dbUser), HttpStatus.OK);
+        return new ResponseEntity<>(blogService.getBlogByUsername(dbUser,pageSize,page), HttpStatus.OK);
     }
 
     @PostMapping("/create")
