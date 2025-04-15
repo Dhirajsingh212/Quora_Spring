@@ -43,7 +43,7 @@ public class BlogController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByUsername(username);
         if (user == null) {
-            return new ResponseEntity<>("User  not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
         blog.setUser(user);
         return new ResponseEntity<>(blogService.createNewBlog(blog),HttpStatus.CREATED);
@@ -54,7 +54,7 @@ public class BlogController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByUsername(username);
         if (user == null) {
-            return new ResponseEntity<>("User  not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
         blog.setUser(user);
         return new ResponseEntity<>(blogService.updateBlog(id,blog),HttpStatus.OK);
