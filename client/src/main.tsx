@@ -1,0 +1,43 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { BrowserRouter } from "react-router";
+import { ThemeProvider } from "./components/ui/ThemeProvider.tsx";
+import { Toaster } from "react-hot-toast";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <App />
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            removeDelay: 1000,
+            style: {
+              background: "#363636",
+              color: "#fff",
+            },
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: "#4ade80",
+                secondary: "black",
+              },
+            },
+          }}
+        />
+      </ThemeProvider>
+    </BrowserRouter>
+  </StrictMode>
+);
