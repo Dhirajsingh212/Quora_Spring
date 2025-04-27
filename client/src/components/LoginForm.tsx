@@ -8,11 +8,13 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useUserStore } from "@/store/store";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const userState = useUserStore();
 
   const authenticateDetails = async () => {
     const response = await axios.post(`${BASE_URL}/login`, {
@@ -20,13 +22,11 @@ const LoginForm = () => {
       password,
     });
 
-    setValue(
-      "useAtom",
-      JSON.stringify({
-        jwtToken: response.data,
-        isLoggedIn: true,
-      })
-    );
+    setValue("jwtToken", JSON.stringify(response.data));
+    setValue("isLoggedIn", JSON.stringify(true));
+    userState.setJwtToken(response.data);
+    userState.setLoggedInStatus();
+
     navigate("/");
   };
 
