@@ -29,6 +29,10 @@ public class UserServiceImpl implements UserService {
         if(user.getRole() == null) {
             user.setRole("USER");
         }
+        User dbUser = userRepository.findByUsername(user.getUsername());
+        if(dbUser != null) {
+            return "Failure User already exists";
+        }
         try{
             userRepository.save(user);
             return jwtService.generateToken(user.getUsername());

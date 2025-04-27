@@ -1,30 +1,52 @@
 import { Button } from "@/components/ui/button";
+import { useUserStore } from "@/store/store";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { setValue } from "@/utils/localStorage";
+import { useNavigate } from "react-router";
+import axios from "axios";
+import { BASE_URL } from "@/config/colors";
 import toast from "react-hot-toast";
 
 const SignupForm = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const userState = useUserStore();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: any) => {
-    toast.success("hellow world");
+  const authenticateDetails = async () => {
+    const response = await axios.post(`${BASE_URL}/createnew`, {
+      username,
+      password,
+    });
+
+    setValue("jwtToken", JSON.stringify(response.data));
+    setValue("isLoggedIn", JSON.stringify(true));
+    userState.setJwtToken(response.data);
+    userState.setLoggedInStatus();
+
+    navigate("/");
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    console.log("Email:", email);
-    console.log("Password:", password);
+    toast.promise(authenticateDetails, {
+      loading: "Hold tight sigining you up...",
+      success: <b>SignedUp successfully</b>,
+      error: <b>Something went wrong.</b>,
+    });
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
       <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="username">Username</Label>
         <Input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
       </div>
