@@ -7,6 +7,7 @@ import com.testing.todoapp.model.User;
 import java.util.List;
 
 public interface BlogService {
+    public List<BlogDTO> getAllBlog();
     public String createNewBlog(Blog blog);
     public BlogDTO getBlog(String id);
     public List<BlogDTO> getBlogByUsername(User usr,int pageSize,int page);

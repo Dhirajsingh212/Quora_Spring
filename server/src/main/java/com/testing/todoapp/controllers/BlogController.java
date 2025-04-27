@@ -23,6 +23,12 @@ public class BlogController {
         this.userService = userService;
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<BlogDTO>> getAll() {
+        List<BlogDTO> blogs = blogService.getAllBlog();
+        return new ResponseEntity<>(blogs,HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<BlogDTO> getBlogById(@PathVariable String id){
         return new ResponseEntity<>(blogService.getBlog(id), HttpStatus.OK);

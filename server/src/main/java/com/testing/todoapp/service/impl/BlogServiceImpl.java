@@ -24,6 +24,12 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public List<BlogDTO> getAllBlog() {
+        List<Blog> dbBlogs = blogRepository.findAll();
+        return dbBlogs.stream().map(BlogMapper::mapToBlogDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public String createNewBlog(Blog blog) {
         blogRepository.save(blog);
         return "Blog created";
