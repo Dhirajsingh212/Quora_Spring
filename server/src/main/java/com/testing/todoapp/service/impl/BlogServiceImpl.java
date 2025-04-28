@@ -1,7 +1,9 @@
 package com.testing.todoapp.service.impl;
 
 import com.testing.todoapp.dto.BlogDTO;
+import com.testing.todoapp.dto.UserBlogDTO;
 import com.testing.todoapp.mapper.BlogMapper;
+import com.testing.todoapp.mapper.UserBlogMapper;
 import com.testing.todoapp.model.Blog;
 import com.testing.todoapp.model.User;
 import com.testing.todoapp.repository.BlogRepository;
@@ -24,9 +26,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogDTO> getAllBlog() {
+    public List<UserBlogDTO> getAllBlog() {
         List<Blog> dbBlogs = blogRepository.findAll();
-        return dbBlogs.stream().map(BlogMapper::mapToBlogDTO).collect(Collectors.toList());
+        return dbBlogs.stream().map(UserBlogMapper::mapToUserBlogDTO).collect(Collectors.toList());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.testing.todoapp.controllers;
 
 import com.testing.todoapp.dto.BlogDTO;
+import com.testing.todoapp.dto.UserBlogDTO;
 import com.testing.todoapp.model.Blog;
 import com.testing.todoapp.model.User;
 import com.testing.todoapp.service.BlogService;
@@ -24,8 +25,8 @@ public class BlogController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<BlogDTO>> getAll() {
-        List<BlogDTO> blogs = blogService.getAllBlog();
+    public ResponseEntity<List<UserBlogDTO>> getAll() {
+        List<UserBlogDTO> blogs = blogService.getAllBlog();
         return new ResponseEntity<>(blogs,HttpStatus.OK);
     }
 
