@@ -36,6 +36,8 @@ const CreateBlogDialog = () => {
         },
       }
     );
+    setTitle("");
+    setContent("");
     blogState.fetchBlog();
   };
 
