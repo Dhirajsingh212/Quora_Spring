@@ -5,6 +5,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { useState } from "react";
+import CreateBlogDialog from "./CreateBlogDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +60,7 @@ const Navbar = () => {
                   className="group inline-flex h-9 w-full md:w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-700/20 hover:text-violet-400"
                   href="#"
                 >
-                  Blog
+                  <CreateBlogDialog />
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
